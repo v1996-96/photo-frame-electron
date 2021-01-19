@@ -10,6 +10,7 @@ import { setup as setupForismatic } from './handlers/forismatic';
 import { setup as setupYandexAuth } from './handlers/yandex-auth';
 import { setup as setupYandexLogin } from './handlers/yandex-login';
 import { setup as setupYandexDisk } from './handlers/yandex-disk';
+import { setup as setupFullscreen, destroy as destroyFullscreen } from './handlers/fullscreen';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -41,6 +42,12 @@ async function createWindow() {
         // Load the index.html when not in development
         win.loadURL('app://./index.html');
     }
+
+    setupFullscreen(win);
+
+    win.on('close', () => {
+        destroyFullscreen();
+    });
 }
 
 // Quit when all windows are closed.

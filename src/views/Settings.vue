@@ -2,10 +2,13 @@
     <v-container class="pt-4">
         <page-heading message="Настройки" />
 
-        <v-card>
-            <v-card-text class="mb-4">
+        <v-card class="mb-4">
+            <v-card-text>
                 <backlight />
             </v-card-text>
+            <v-card-actions>
+                <v-btn @click="handleClickToggleFullscreen">Во весь экран</v-btn>
+            </v-card-actions>
         </v-card>
 
         <v-expansion-panels>
@@ -25,9 +28,15 @@
 import PageHeading from '~/components/PageHeading';
 import Backlight from '~/components/Backlight';
 import Accounts from '~/components/Accounts';
+import { toggleFullscreen } from '~/handlers/fullscreen/renderer';
 
 export default {
     name: 'Settings',
     components: { PageHeading, Backlight, Accounts },
+    methods: {
+        handleClickToggleFullscreen() {
+            toggleFullscreen();
+        },
+    },
 };
 </script>
