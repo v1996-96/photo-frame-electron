@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import { LongPolling } from '@/utils/long-polling';
-import { helpers as authHelpers } from '@/store/modules/auth';
+import { LongPolling } from '~/utils/long-polling';
+import { helpers as authHelpers } from '~/store/modules/auth';
 
 export default {
     name: 'Auth',

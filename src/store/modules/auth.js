@@ -13,6 +13,12 @@ const defaultAuthorizationData = {
 };
 
 const state = {
+    secrets: {
+        clientId: null,
+        clientSecret: null,
+        deviceId: null,
+        deviceName: null,
+    },
     accounts: [],
     authorizationData: defaultAuthorizationData,
 };
@@ -40,19 +46,25 @@ const mutations = {
         state.accounts.push(account);
     },
     removeAccount(state, account) {
-        state.accounts = state.accounts.filter(({ accountId }) => accountId === account.accountId);
+        state.accounts = state.accounts.filter(({ accountId }) => accountId !== account.accountId);
+    },
+    updateSecrets(state, { name, value }) {
+        state.secrets[name] = value;
     },
 };
 
 const actions = {
-    getCode({ commit }) {
-        return getCode().then(data => {
+    getCode({ commit, state }) {
+        return getCode({ ...state.secrets }).then(data => {
             commit('setAuthorizationData', data);
         });
     },
     async checkAuth({ state, commit }) {
         try {
-            const credentials = await getToken(state.authorizationData.deviceCode);
+            const credentials = await getToken({
+                deviceCode: state.authorizationData.deviceCode,
+                ...state.secrets,
+            });
             const account = await getAccount(credentials.accessToken);
 
             commit('addAccount', {

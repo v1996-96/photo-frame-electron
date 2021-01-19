@@ -20,6 +20,15 @@
                     <accounts />
                 </v-expansion-panel-content>
             </v-expansion-panel>
+
+            <v-expansion-panel>
+                <v-expansion-panel-header>
+                    Авторизация
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <auth-settings />
+                </v-expansion-panel-content>
+            </v-expansion-panel>
         </v-expansion-panels>
     </v-container>
 </template>
@@ -28,11 +37,12 @@
 import PageHeading from '~/components/PageHeading';
 import Backlight from '~/components/Backlight';
 import Accounts from '~/components/Accounts';
+import AuthSettings from '~/components/AuthSettings';
 import { toggleFullscreen } from '~/handlers/fullscreen/renderer';
 
 export default {
     name: 'Settings',
-    components: { PageHeading, Backlight, Accounts },
+    components: { PageHeading, Backlight, Accounts, AuthSettings },
     methods: {
         handleClickToggleFullscreen() {
             toggleFullscreen();

@@ -21,7 +21,7 @@
 
 <script>
 import { helpers as galleryHelpers } from '~/store/modules/gallery';
-import Delayed from '@/components/Delayed';
+import Delayed from '~/components/Delayed';
 
 export default {
     name: 'GalleryImages',

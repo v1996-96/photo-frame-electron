@@ -53,9 +53,9 @@
 </template>
 
 <script>
-import { helpers as authHelpers } from '@/store/modules/auth';
-import { helpers as galleryHelpers } from '@/store/modules/gallery';
-import DiskStructure from '@/components/DiskStructure';
+import { helpers as authHelpers } from '~/store/modules/auth';
+import { helpers as galleryHelpers } from '~/store/modules/gallery';
+import DiskStructure from '~/components/DiskStructure';
 
 export default {
     name: 'GallerySettings',
