@@ -5,7 +5,7 @@ import { app, protocol, BrowserWindow } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import { setup as setupParty } from './handlers/party';
-import { setup as setupBacklight } from './handlers/backlight';
+import { setup as setupRpi } from './handlers/rpi';
 import { setup as setupForismatic } from './handlers/forismatic';
 import { setup as setupYandexAuth } from './handlers/yandex-auth';
 import { setup as setupYandexLogin } from './handlers/yandex-login';
@@ -81,7 +81,7 @@ app.on('ready', async () => {
     createWindow();
 
     setupParty();
-    setupBacklight();
+    setupRpi();
     setupForismatic();
     setupYandexAuth();
     setupYandexLogin();

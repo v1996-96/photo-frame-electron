@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { setBacklight } from '~/handlers/backlight/renderer';
+import { setBacklight } from '~/handlers/rpi/renderer';
 import { helpers as settingsHelpers } from '~/store/modules/settings';
 
 export default {

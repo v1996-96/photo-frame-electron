@@ -13,7 +13,7 @@ module.exports = {
     pluginOptions: {
         electronBuilder: {
             preload: 'src/preload.js',
-            externals: ['pigpio'],
+            mainProcessWatch: ['src/background.js', 'src/handlers/**/*.js'],
             builderOptions: {
                 linux: {
                     target: [{ target: 'AppImage', arch: ['armv7l', 'arm64'] }],
