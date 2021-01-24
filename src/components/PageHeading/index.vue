@@ -1,11 +1,8 @@
 <template>
-    <v-row class="mb-8" align="center">
-        <v-col class="grow">
-            <h2 class="text-h2 font-weight-bold heading">{{ message }}</h2>
-        </v-col>
-        <v-col class="shrink">
-            <slot />
-        </v-col>
+    <v-row class="mb-8" align="center" no-gutters>
+        <h2 class="text-h2 font-weight-bold heading">{{ message }}</h2>
+        <v-spacer />
+        <slot />
     </v-row>
 </template>
 

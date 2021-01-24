@@ -7,8 +7,7 @@
         :max="1000"
         :step="10"
         @change="handleChangeBacklight"
-    >
-    </v-slider>
+    />
 </template>
 
 <script>

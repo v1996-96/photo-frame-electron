@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { nanoid } from 'nanoid';
 import { getResources } from '~/handlers/yandex-disk/renderer';
 
 export default {
@@ -88,17 +89,17 @@ export default {
                 this.isLoading = false;
                 const rawItems = response?.embedded?.items || [];
 
-                const items = rawItems.map(item => ({
-                    id: item.path,
-                    name: item.name,
-                    path: item.path,
-                    created: item.created,
-                    modified: item.modified,
-                    type: item.type,
-                    children: [],
-                }));
-
-                const dirs = items.filter(({ type }) => type === 'dir');
+                const dirs = rawItems
+                    .filter(({ type }) => type === 'dir')
+                    .map(item => ({
+                        pathId: nanoid(),
+                        name: item.name,
+                        path: item.path,
+                        created: item.created,
+                        modified: item.modified,
+                        type: item.type,
+                        children: [],
+                    }));
 
                 return dirs;
             } catch (error) {

@@ -3,30 +3,19 @@
         <navigation />
 
         <v-main class="main">
-            <router-view v-if="true" />
-
-            <v-container v-if="false" class="pt-4">
-                <v-alert prominent type="error">
-                    <v-row align="center">
-                        <v-col class="grow">
-                            Произошла какая-то ошибка :(
-                        </v-col>
-                        <v-col class="shrink">
-                            <v-btn @click="loadPrerequisites">Перезагрузить</v-btn>
-                        </v-col>
-                    </v-row>
-                </v-alert>
-            </v-container>
+            <router-view />
+            <gallery-carousel />
         </v-main>
     </v-app>
 </template>
 
 <script>
 import Navigation from '~/components/Navigation';
+import GalleryCarousel from '~/components/GalleryCarousel';
 
 export default {
     name: 'App',
-    components: { Navigation },
+    components: { Navigation, GalleryCarousel },
 };
 </script>
 

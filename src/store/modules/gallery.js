@@ -7,6 +7,11 @@ const state = {
     selectedPaths: [],
     images: [],
     isLoadingImages: false,
+
+    isCarouselOpened: false,
+    activeImageIndex: null,
+    interval: 30 * 60 * 1000,
+    shouldCycle: true,
 };
 
 const getters = {
@@ -41,6 +46,9 @@ const mutations = {
 
         state.selectedPaths = [...state.selectedPaths, ...newSelectedPaths];
     },
+    removeSelectedPath(state, { pathId }) {
+        state.selectedPaths = state.selectedPaths.filter(path => path.pathId !== pathId);
+    },
 
     setIsLoadingImages(state, value) {
         state.isLoadingImages = value;
@@ -50,6 +58,19 @@ const mutations = {
     },
     clearImages(state) {
         state.images = [];
+    },
+
+    setIsCarouselOpened(state, isCarouselOpened) {
+        state.isCarouselOpened = isCarouselOpened;
+    },
+    setActiveImageIndex(state, activeImageIndex) {
+        state.activeImageIndex = activeImageIndex;
+    },
+    setInterval(state, interval) {
+        state.interval = interval;
+    },
+    setShouldCycle(state, shouldCycle) {
+        state.shouldCycle = shouldCycle;
     },
 };
 
