@@ -1,17 +1,20 @@
 import { nanoid } from 'nanoid';
 import { groupBy, pathOr, prop, splitEvery } from 'ramda';
 import { createNamespacedHelpers } from 'vuex';
+import { VIEW_ORDER, VIEW_ORDER_HANDLERS } from '~/config/gallery';
 import { getResources } from '~/handlers/yandex-disk/renderer';
 
 const state = {
     selectedPaths: [],
     images: [],
+    imagesOrdered: [],
     isLoadingImages: false,
 
     isCarouselOpened: false,
     activeImageIndex: null,
     interval: 30 * 60 * 1000,
     shouldCycle: true,
+    viewOrder: VIEW_ORDER.default,
 };
 
 const getters = {
@@ -59,6 +62,12 @@ const mutations = {
     clearImages(state) {
         state.images = [];
     },
+    setImagesOrdered(state, imagesOrdered) {
+        state.imagesOrdered = imagesOrdered;
+    },
+    addImagesOrdered(state, images) {
+        state.imagesOrdered = [...state.imagesOrdered, ...images];
+    },
 
     setIsCarouselOpened(state, isCarouselOpened) {
         state.isCarouselOpened = isCarouselOpened;
@@ -72,11 +81,15 @@ const mutations = {
     setShouldCycle(state, shouldCycle) {
         state.shouldCycle = shouldCycle;
     },
+    setViewOrder(state, viewOrder) {
+        state.viewOrder = viewOrder;
+    },
 };
 
 const actions = {
-    async loadImages({ commit, state, rootGetters }) {
+    async loadImages({ commit, dispatch, state, rootGetters }) {
         commit('clearImages');
+        commit('setImagesOrdered', []);
         commit('setIsLoadingImages', true);
 
         for (const selectedPath of state.selectedPaths) {
@@ -106,9 +119,20 @@ const actions = {
                 }));
 
             commit('addImages', images);
+            commit('addImagesOrdered', images);
         }
 
+        await dispatch('setViewOrderAsync', state.viewOrder);
+
         commit('setIsLoadingImages', false);
+    },
+    setViewOrderAsync({ commit, state }, viewOrder) {
+        return new Promise(resolve => {
+            commit('setViewOrder', viewOrder);
+            commit('setActiveImageIndex', null);
+            commit('setImagesOrdered', VIEW_ORDER_HANDLERS[state.viewOrder](state.images));
+            resolve();
+        });
     },
 };
 

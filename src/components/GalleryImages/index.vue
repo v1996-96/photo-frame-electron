@@ -1,15 +1,15 @@
 <template>
     <div>
         <v-virtual-scroll v-if="images.length" :items="imagesBy4" height="450" item-height="174">
-            <template #default="{ item: imagesRow, index: rowIndex }">
+            <template #default="{ item: imagesRow }">
                 <div class="images-row">
                     <v-img
-                        v-for="(image, imageIndex) in imagesRow"
+                        v-for="image in imagesRow"
                         :key="image.imageId"
                         :src="image.src"
                         height="150"
                         class="grey lighten-2"
-                        @click="handleClickImage(rowIndex, imageIndex)"
+                        @click="handleClickImage(image)"
                     />
                 </div>
             </template>
@@ -22,19 +22,21 @@
 </template>
 
 <script>
+import { propEq, findIndex } from 'ramda';
 import { helpers as galleryHelpers } from '~/store/modules/gallery';
 
 export default {
     name: 'GalleryImages',
     computed: {
-        ...galleryHelpers.mapState(['images']),
+        ...galleryHelpers.mapState(['images', 'imagesOrdered']),
         ...galleryHelpers.mapGetters(['imagesBy4']),
     },
     methods: {
         ...galleryHelpers.mapMutations(['setIsCarouselOpened', 'setActiveImageIndex']),
 
-        handleClickImage(rowIndex, imageIndex) {
-            this.setActiveImageIndex(rowIndex * 4 + imageIndex);
+        handleClickImage({ imageId }) {
+            const imageIndex = findIndex(propEq('imageId', imageId), this.imagesOrdered);
+            this.setActiveImageIndex(imageIndex >= 0 ? imageIndex : 0);
             this.setIsCarouselOpened(true);
         },
     },

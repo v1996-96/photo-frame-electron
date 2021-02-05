@@ -1,10 +1,7 @@
 <template>
     <div>
-        <v-card class="mb-4">
-            <v-card-text>
-                <gallery-interval with-label />
-            </v-card-text>
-        </v-card>
+        <gallery-interval class="mb-4" />
+        <gallery-view-order class="mb-4" />
 
         <v-card>
             <v-tabs v-model="selectedTab">
@@ -76,11 +73,12 @@
 import { helpers as authHelpers } from '~/store/modules/auth';
 import { helpers as galleryHelpers } from '~/store/modules/gallery';
 import DiskStructure from '~/components/DiskStructure';
-import GalleryInterval from '~/components/GalleryInterval';
+import GalleryInterval from './GalleryInterval';
+import GalleryViewOrder from './GalleryViewOrder';
 
 export default {
     name: 'GallerySettings',
-    components: { DiskStructure, GalleryInterval },
+    components: { DiskStructure, GalleryInterval, GalleryViewOrder },
     data: () => ({
         selectedTab: null,
     }),

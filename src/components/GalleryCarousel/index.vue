@@ -1,8 +1,14 @@
 <template>
-    <v-dialog fullscreen :value="isCarouselOpened" @input="setIsCarouselOpened">
+    <v-dialog
+        fullscreen
+        content-class="carousel-dialog"
+        :value="isCarouselOpened"
+        @input="setIsCarouselOpened"
+    >
         <v-card>
             <v-carousel
-                v-if="images.length"
+                v-if="imagesOrdered.length"
+                :key="viewOrder"
                 hide-delimiters
                 continuous
                 height="600"
@@ -13,7 +19,7 @@
                 @change="setActiveImageIndex"
             >
                 <v-carousel-item
-                    v-for="image in images"
+                    v-for="image in imagesOrdered"
                     :key="image.imageId"
                     :src="image.src"
                     contain
@@ -59,10 +65,11 @@ export default {
     computed: {
         ...galleryHelpers.mapState([
             'isCarouselOpened',
-            'images',
             'activeImageIndex',
             'interval',
             'shouldCycle',
+            'viewOrder',
+            'imagesOrdered',
         ]),
     },
     methods: {
@@ -77,6 +84,10 @@ export default {
 </script>
 
 <style>
+.carousel-dialog {
+    overflow: hidden !important;
+}
+
 .overlay {
     position: absolute;
     top: 0;
