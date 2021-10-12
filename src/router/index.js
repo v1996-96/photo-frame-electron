@@ -4,6 +4,7 @@ import store from '~/store';
 import Home from '~/views/Home';
 import Settings from '~/views/Settings';
 import Gallery from '~/views/Gallery';
+import FamilyTimer from '~/views/FamilyTimer';
 import News from '~/views/News';
 import Weather from '~/views/Weather';
 import Todos from '~/views/Todos';
@@ -20,6 +21,11 @@ const routes = [
         path: '/gallery',
         name: 'Gallery',
         component: Gallery,
+    },
+    {
+        path: '/family-timer',
+        name: 'FamilyTimer',
+        component: FamilyTimer,
     },
     {
         path: '/news',
